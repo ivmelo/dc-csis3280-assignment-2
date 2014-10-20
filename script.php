@@ -53,6 +53,7 @@
 	/*
 	* Print results
 	*/
+	
 	function print_list_array($companies, $found_keys, $not_found) {
 
 		ksort($companies);
