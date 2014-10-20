@@ -16,69 +16,40 @@
 		// get the values separated by comma or dot and store into an array
 		$terms = preg_split( "/[,|.]/", $_POST['query']);
 
-		$result_companies = array();
+		// array to store the keys of the found items
+		$keys_found = array();
+
+		// array to store the not found terms
 		$not_found = array();
 
-		//print_r($terms);
+		//
 
-		echo '===========================================<br />';
+		// loop through all the search terms
 		foreach ($terms as $term) {	
+			// if the key exist within the keys
 			if (array_key_exists(strtolower(trim($term)), $company)) {
-				// found key
-				echo $term . '====</br> ';
+				// push the key into the $keys_found array
+				array_push($keys_found, trim($term));
+
+			// if the value exist within the $company array
 			} else if (in_array(ucwords(trim($term)), $company)) {
-				// found value
-				echo $term . '====</br> ';
+				// will found the key correspondent to the value and push into the array
+				array_push($keys_found, array_search(ucwords(trim($term)), $company));
+			// didn't found the word in the array
 			} else {
-				// not found
+				// will push the word into the $not_found array
+				array_push($not_found, $term);
 			}
-		}
-		echo '===========================================<br />';
-
-		/*foreach ($company as $key => $value) {
-
-			if(array_key_exists('ati', search))
-
-			/*foreach ($terms as $term) {
-
-				/*if (strtolower(trim($term)) === strtolower($key) || strtolower(trim($term)) === strtolower($value)) {
-
-					$result_companies['****' . $key] = $value;
-					//echo '***FOUND_DEBUG=' . $key . '==>' . $value . '==>' . $term . ' <br/>';
-					
-				} else {
-
-					if (array_key_exists('****' . $key, $result_companies)) {
-
-					} else {
-						$result_companies[$key] = $value;
-					}
-					
-					//echo 'DEBUG=' . $key . '==>' . $value . '==>' . $term . ' <br/>';
-				}*/
-			//}
-		//}
-
-		/*print_r($result_companies);*/
-		/*print_r($not_found);*/
-
-		/*foreach ($terms as $term) {
-			echo trim($term) . '<br/>';
-		}
-
-		foreach ($result_companies as $key => $value) {
-			echo $key . ' ==> ' . $value . '<br/>';
 		}
 
 		
+		print_list_array($company, $keys_found, $not_found);
 
-		/*foreach ($company as $sigla => $nome) {
-			if (strpos(strtolower($terms), strtolower($sigla)) !== FALSE) {
-				echo $sigla . '</br>';
-			} else {
+		//echo '===========================================<br />';
 
-			}
-		}*/
+		// print_r($not_found);
+
+		
 
 
 
@@ -86,15 +57,31 @@
 		echo "<p><strong>You entering NOTHING, PLEASE Re-Enter</strong></p>";
 	}
 
-	function get_terms($array) {
-		$terms = array();
-		return $terms;
-	}
+	function print_list_array($companies, $found_keys, $not_found) {
 
-	function search() {
-		$result = arrat();
-		return $result;
-	}
+		echo '===========================================<br />';
 
+		foreach ($companies as $key => $value) {
+			if (in_array($key, $found_keys)) {
+				echo "<b>****" . $key . '==><i>' . $value . '</i></b><br />';
+			} else {
+				echo $key . '==>' . $value . '<br />';
+			}
+		}
+
+		echo '===========================================<br />';
+
+		if (!empty($not_found)) {
+			
+			echo '====The following were NOT found (reverse order) =====<br />';
+
+			foreach ($not_found as $not_found_term) {
+				echo $not_found_term . '<br />';
+			}
+
+			echo '===========================================<br />';
+		}
+
+	}
 
 ?>
