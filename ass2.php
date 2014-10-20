@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>Assignment 2 - Cicero e Ivanilson</title>
 	</head>
 	<body>
 		<h2>String Search</h2>
