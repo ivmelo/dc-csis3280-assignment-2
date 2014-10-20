@@ -43,7 +43,7 @@
 					// and push into the $keys_found array
 					array_push($keys_found, 
 						array_search(ucwords(strtolower(trim($term))), $company));
-				// didn't found the word in the array
+				// didn't find the word in the array
 				} else {
 					// will push the word into the $not_found array
 					array_push($not_found, $term);
