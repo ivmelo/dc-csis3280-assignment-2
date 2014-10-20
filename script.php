@@ -1,5 +1,5 @@
 <?php
-
+	
 	$company = array(
 		'ms'=>'Microsoft' ,
 		'ibm'=>'International Business Machines',
@@ -10,6 +10,7 @@
 		'en' =>'Enron',
 		'ati' => 'ATI Tech. Inc.' 
 	);
+
 
 	if (isset($_POST['query']) || !empty($_POST['query'])) {
 		
@@ -22,7 +23,6 @@
 		// array to store the not found terms
 		$not_found = array();
 
-		//
 
 		// loop through all the search terms
 		foreach ($terms as $term) {	
@@ -42,37 +42,37 @@
 			}
 		}
 
-		
+		// print results
 		print_list_array($company, $keys_found, $not_found);
-
-		//echo '===========================================<br />';
-
-		// print_r($not_found);
-
-		
-
 
 
 	} else {
 		echo "<p><strong>You entering NOTHING, PLEASE Re-Enter</strong></p>";
 	}
 
+	/*
+	* Print results
+	*/
 	function print_list_array($companies, $found_keys, $not_found) {
+
+		ksort($companies);
 
 		echo '===========================================<br />';
 
 		foreach ($companies as $key => $value) {
 			if (in_array($key, $found_keys)) {
-				echo "<b>****" . $key . '==><i>' . $value . '</i></b><br />';
+				echo "<b>****" . $key . ' ==> <i>' . $value . '</i></b><br />';
 			} else {
-				echo $key . '==>' . $value . '<br />';
+				echo $key . ' ==> ' . $value . '<br />';
 			}
 		}
 
 		echo '===========================================<br />';
 
 		if (!empty($not_found)) {
-			
+
+			rsort($not_found);
+
 			echo '====The following were NOT found (reverse order) =====<br />';
 
 			foreach ($not_found as $not_found_term) {
@@ -81,7 +81,6 @@
 
 			echo '===========================================<br />';
 		}
-
 	}
 
 ?>
